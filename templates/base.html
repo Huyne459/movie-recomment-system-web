@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+<!--    <link rel="stylesheet" href="mainpage.css">-->
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='style/mainpage.css')}}">
+
+</head>
+<body>
+    <div class="box1">
+        <h1>recomment film</h1>
+    </div>
+
+    <div class="box2">
+        <div class="box-arena">
+            <form action="#" method="POST">
+                <input type="text" name="search" placeholder="Search"/>
+                <button type="submit">Search!</button>
+            </form>
+        </div>   
+    </div>
+
+    <div class="box3">
+        <div>
+            <form action="#" method="POST">
+                <label for="">Name</label>
+                <select name="theloai" id="theloai">
+                 <optgroup>
+                    <option value="Thể loại">-----Thể loại -----</option>
+                    <option value="ALL">ALL</option>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Children's">Children's</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Documentary">Documentary</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Film-Noir">Film-Noir</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Musical">Musical</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="War">War</option>
+                    <option value="Western">Western</option>
+                 </optgroup>
+                </select>
+                <button type="submit" id="locBtn"> Lọc </button>
+            </form>
+        </div>
+
+        <div>
+            <button type="button" id="reconmentbt">Recomment!</button>
+            <button type="button" id="movielikebt">MovieLike!</button>
+        </div>
+    </div>
+
+    <div class="boxtable">
+        {% block table %}
+
+        {% endblock %}
+    </div>
+</body>

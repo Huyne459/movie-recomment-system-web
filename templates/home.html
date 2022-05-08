@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block table %}
+<table>
+    <tr>
+        <th>Ten movie</th>
+        <th>Rating</th>
+        <th>Vote</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td><button type="button">{{ row[-1] }}</button></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

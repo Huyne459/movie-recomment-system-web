@@ -25,7 +25,8 @@ def find_movide_by_name(name):
     result = []
     for x in mycursor:
         result.append(x)
-        print(x)
+        # print(x)
+        # print(1)
 
     return result
 
