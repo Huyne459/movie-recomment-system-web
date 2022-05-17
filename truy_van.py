@@ -1,4 +1,6 @@
 import mysql.connector
+import pandas as pd
+
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -98,6 +100,73 @@ def sort_movie_by_rating(status="decrease"):
     print(result)
     # print(type(result[0]))
     # return result
+
+
+def find_movie_in4_by_movieId(id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="movielens"
+    )
+
+    mycursor = mydb.cursor()
+    text = "SELECT * FROM(SELECT genres_movies.movie_id,genres.name FROM genres_movies, genres WHERE genres.id=genres_movies.genre_id AND genres_movies.movie_id = %s ) AS kl, movies WHERE movies.id = kl. movie_id;" %id
+    mycursor.execute(text)
+
+    df = pd.DataFrame(columns=['movieId', 'name', 'time', 'genres'])
+
+    genres = []
+
+    for x in mycursor:
+        time_release = x[-1]
+        name_film = x[2]
+        genres.append(x[1])
+        # print(x)
+
+    df = df.append({'movieId': id, 'name': name_film, 'time': time_release, 'genres': genres}, ignore_index=True)
+    print(df)
+
+    return df
+
+
+def find_movies_watched_by_userId(userId):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="movielens"
+    )
+
+    mycursor = mydb.cursor()
+    text = "SELECT ratings.user_id, movies.id, movies.title, ratings.rating FROM movies, ratings WHERE movies.id=ratings.movie_id and ratings.user_id = " + userId + ";"
+    mycursor.execute(text)
+    #     print(text)
+    df = pd.DataFrame(columns=['userId', 'movieId', 'title', 'rating'])
+
+    for x in mycursor:
+        df = df.append({'userId': x[0], 'movieId': x[1], 'title': x[2], 'rating': x[3]}, ignore_index=True)
+    #         print(x)
+    return df
+
+
+def all_movies():
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="movielens"
+    )
+    mycursor = mydb.cursor()
+    text = "SELECT * FROM movies;"
+    mycursor.execute(text)
+    #     print(text)
+    df = pd.DataFrame(columns=['movieId', 'title', 'time'])
+
+    for x in mycursor:
+        df = df.append({'movieId': x[0], 'title': x[1], 'time': x[2]}, ignore_index=True)
+    #         print(x)
+    return df
 
 def show_databases():
     mycursor.execute("select * from users")
